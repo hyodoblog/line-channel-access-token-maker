@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Box sx={{ mt: -10, mb: 10, textAlign: 'center' }}>
+        <Box sx={{ mt: -4, mb: 10, textAlign: 'center' }}>
           <Typography variant="h4" sx={{ mb: 2, fontWeight: 'bold' }}>
             {title}
           </Typography>
