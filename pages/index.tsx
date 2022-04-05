@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Content } from '~/content/Home'
+import { Footer } from '~/components/Footer'
+import { Content } from '~/content'
 import styles from '~/styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -21,14 +22,7 @@ const Home: NextPage = () => {
         <Content />
       </main>
 
-      <footer className={styles.footer}>
-        <a href="https://twitter.com/hyodoblog" target="_blank" rel="noopener noreferrer">
-          <Typography variant="body1">Powered by</Typography>
-          <Typography variant="body1" sx={{ ml: 1, textDecorationLine: 'underline' }}>
-            hyodoblog
-          </Typography>
-        </a>
-      </footer>
+      <Footer />
     </div>
   )
 }
