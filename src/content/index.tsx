@@ -1,9 +1,15 @@
-import { Form } from './Form'
+import { useState } from 'react'
+import { SecretForm } from './SecretForm'
+import { TokenDisplayDialog } from './TokenDisplayDialog'
 
 export const Content = () => {
+  const [token, setToken] = useState<string>('')
+
   return (
     <>
-      <Form />
+      <SecretForm setToken={setToken} />
+
+      <TokenDisplayDialog token={token} setToken={setToken} />
     </>
   )
 }

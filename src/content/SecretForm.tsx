@@ -1,18 +1,24 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Box, Button, Card, Container, Grid, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, CircularProgress, Container, Grid, Stack, TextField, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import * as yup from 'yup'
 
 import { ApiGetTokenReq } from '~/types'
-import { useState } from 'react'
+import { Dispatch, useState } from 'react'
+import { getAccessToken } from '~/utils/api'
 
 const schema = yup.object({
   secretKey: yup.string().min(1, '1文字以上').max(30, '30文字以内').required('必須')
 })
 
-export const Form = () => {
+interface Props {
+  setToken: Dispatch<string>
+}
+
+export const SecretForm = ({ setToken }: Props) => {
   const [isSubmitLoading, setSubmitLoading] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const {
     formState: { errors },
     handleSubmit,
@@ -21,6 +27,15 @@ export const Form = () => {
 
   const onSubmit: SubmitHandler<ApiGetTokenReq> = async ({ secretKey }) => {
     setSubmitLoading(true)
+
+    try {
+      const { channelAccessToken } = await getAccessToken({ secretKey })
+      setToken(channelAccessToken)
+    } catch (err) {
+      setErrorMessage('チャネルアクセストークンの発行に失敗しました')
+      setTimeout(() => setErrorMessage(''), 3000)
+    }
+
     setSubmitLoading(false)
   }
 
@@ -29,7 +44,7 @@ export const Form = () => {
       <Container maxWidth="sm">
         <Grid container>
           <Grid item xs={12} sx={{ textAlign: 'center' }}>
-            <Typography variant="subtitle1" sx={{ mb: 1 }}>
+            <Typography variant="h5" sx={{ mb: 2 }}>
               シークレットキー
             </Typography>
           </Grid>
@@ -44,9 +59,25 @@ export const Form = () => {
             />
           </Grid>
 
-          <Grid>
-            <Button>発行</Button>
+          <Grid xs={12} sx={{ mt: 4, textAlign: 'center' }}>
+            <Button
+              startIcon={isSubmitLoading && <CircularProgress size="1rem" />}
+              disabled={isSubmitLoading}
+              variant="contained"
+              size="large"
+              onClick={handleSubmit(onSubmit)}
+            >
+              発行
+            </Button>
           </Grid>
+
+          {!!errorMessage && (
+            <Grid xs={12} sx={{ mt: 2 }}>
+              <Typography variant="body1" color="error">
+                {errorMessage}
+              </Typography>
+            </Grid>
+          )}
         </Grid>
       </Container>
     </Card>
