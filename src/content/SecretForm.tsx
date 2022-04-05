@@ -41,17 +41,17 @@ export const SecretForm = ({ setToken }: Props) => {
   }
 
   return (
-    <Card sx={{ borderRadius: 4, p: 4, pb: 6, maxWidth: 500, width: '100%' }}>
+    <Card sx={{ borderRadius: 4, p: 4, pb: 6, maxWidth: 600, width: '100%' }}>
       <Container maxWidth="sm">
         <Grid container alignItems="center">
           {/* チャネルID */}
           <>
-            <Grid item xs={5} sx={{ textAlign: 'right' }}>
+            <Grid item xs={4} sx={{ textAlign: 'right' }}>
               <Typography variant="body1" sx={{ mb: 2, mr: 4, fontWeight: 'bold' }}>
                 チャネルID
               </Typography>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={8}>
               <TextField
                 disabled={isSubmitLoading}
                 error={'channelId' in errors}
@@ -67,12 +67,12 @@ export const SecretForm = ({ setToken }: Props) => {
 
           {/* チャネルシークレット */}
           <>
-            <Grid item xs={5} sx={{ textAlign: 'right' }}>
+            <Grid item xs={4} sx={{ textAlign: 'right' }}>
               <Typography variant="body1" sx={{ mb: 2, mr: 4, fontWeight: 'bold' }}>
                 チャネルシークレット
               </Typography>
             </Grid>
-            <Grid item xs={7}>
+            <Grid item xs={8}>
               <TextField
                 disabled={isSubmitLoading}
                 error={'channelSecret' in errors}
