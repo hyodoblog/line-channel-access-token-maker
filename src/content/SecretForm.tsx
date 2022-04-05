@@ -59,7 +59,7 @@ export const SecretForm = ({ setToken }: Props) => {
             />
           </Grid>
 
-          <Grid xs={12} sx={{ mt: 4, textAlign: 'center' }}>
+          <Grid item xs={12} sx={{ mt: 4, textAlign: 'center' }}>
             <Button
               startIcon={isSubmitLoading && <CircularProgress size="1rem" />}
               disabled={isSubmitLoading}
@@ -72,7 +72,7 @@ export const SecretForm = ({ setToken }: Props) => {
           </Grid>
 
           {!!errorMessage && (
-            <Grid xs={12} sx={{ mt: 2 }}>
+            <Grid item xs={12} sx={{ mt: 2 }}>
               <Typography variant="body1" color="error">
                 {errorMessage}
               </Typography>
