@@ -53,7 +53,11 @@ export const TokenDisplayDialog = ({ token, setToken }: Props) => {
     <Dialog open={isDialog} maxWidth="sm" fullWidth TransitionComponent={Transition} keepMounted>
       <DialogContent sx={{ p: 4 }}>
         <Alert severity="success">
-          <Typography variant="body1">{token}</Typography>
+          <Box>
+            <Typography variant="body1" sx={{ overflowWrap: 'anywhere' }}>
+              {token}
+            </Typography>
+          </Box>
         </Alert>
       </DialogContent>
 
