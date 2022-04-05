@@ -16,7 +16,7 @@ export const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Noto Sans JP, Poppins'
+    fontFamily: 'Roboto'
   },
   components: {
     MuiOutlinedInput: {
