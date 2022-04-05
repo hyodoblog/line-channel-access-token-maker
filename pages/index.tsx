@@ -1,20 +1,18 @@
 import { Box, Typography } from '@mui/material'
 import type { NextPage } from 'next'
-import Head from 'next/head'
 import { Footer } from '~/components/Footer'
+import { Seo } from '~/components/Seo'
+import { SITE_DESCRIPTION, SITE_TITLE } from '~/config'
 import { Content } from '~/content'
 import styles from '~/styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const title = 'LINEチャネルアクセストークンメーカー'
+  const title = SITE_TITLE
+  const description = SITE_DESCRIPTION
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={title} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Seo pageTitle={title} pageDescription={description} pagePath="/" />
 
       <main className={styles.main}>
         <Box sx={{ mt: -4, mb: 10, textAlign: 'center' }}>
@@ -22,7 +20,7 @@ const Home: NextPage = () => {
             {title}
           </Typography>
           <Typography variant="subtitle2" sx={{ fontWeight: 400, mb: 2 }}>
-            短期のチャネルアクセストークンが発行できるサービスです。
+            {description}
           </Typography>
           <Typography variant="body2">
             <a
