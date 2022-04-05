@@ -23,7 +23,8 @@ export const SecretForm = ({ setToken }: Props) => {
   const {
     formState: { errors },
     handleSubmit,
-    register
+    register,
+    reset
   } = useForm<ApiGetTokenReq>({ resolver: yupResolver(schema) })
 
   const onSubmit: SubmitHandler<ApiGetTokenReq> = async ({ channelSecret, channelId }) => {
@@ -31,6 +32,7 @@ export const SecretForm = ({ setToken }: Props) => {
 
     try {
       const { channelAccessToken } = await getAccessToken({ channelSecret, channelId })
+      reset({ channelId: '', channelSecret: '' })
       setToken(channelAccessToken)
     } catch (err) {
       setErrorMessage('チャネルアクセストークンの発行に失敗しました')
@@ -99,7 +101,7 @@ export const SecretForm = ({ setToken }: Props) => {
 
           {/* エラーメッセージ */}
           {!!errorMessage && (
-            <Grid item xs={12} sx={{ mt: 2 }}>
+            <Grid item xs={12} sx={{ mt: 4, textAlign: 'center' }}>
               <Typography variant="body1" color="error">
                 {errorMessage}
               </Typography>
