@@ -1,5 +1,6 @@
 export interface ApiGetTokenReq {
-  secretKey: string
+  channelId: string
+  channelSecret: string
 }
 
 export interface ApiGetTokenRes {

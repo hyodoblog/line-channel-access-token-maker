@@ -9,7 +9,8 @@ import { Dispatch, useState } from 'react'
 import { getAccessToken } from '~/utils/api'
 
 const schema = yup.object({
-  secretKey: yup.string().min(1, '1文字以上').max(30, '30文字以内').required('必須')
+  channelId: yup.string().min(10, '10文字').max(10, '10文字').required('必須'),
+  channelSecret: yup.string().min(32, '32文字').max(32, '32文字').required('必須')
 })
 
 interface Props {
@@ -25,11 +26,11 @@ export const SecretForm = ({ setToken }: Props) => {
     register
   } = useForm<ApiGetTokenReq>({ resolver: yupResolver(schema) })
 
-  const onSubmit: SubmitHandler<ApiGetTokenReq> = async ({ secretKey }) => {
+  const onSubmit: SubmitHandler<ApiGetTokenReq> = async ({ channelSecret, channelId }) => {
     setSubmitLoading(true)
 
     try {
-      const { channelAccessToken } = await getAccessToken({ secretKey })
+      const { channelAccessToken } = await getAccessToken({ channelSecret, channelId })
       setToken(channelAccessToken)
     } catch (err) {
       setErrorMessage('チャネルアクセストークンの発行に失敗しました')
@@ -42,24 +43,49 @@ export const SecretForm = ({ setToken }: Props) => {
   return (
     <Card sx={{ borderRadius: 4, p: 4, pb: 6, maxWidth: 500, width: '100%' }}>
       <Container maxWidth="sm">
-        <Grid container>
-          <Grid item xs={12} sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              シークレットキー
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              disabled={isSubmitLoading}
-              error={'secretKey' in errors}
-              helperText={errors.secretKey?.message}
-              type="text"
-              sx={{ width: '100%' }}
-              {...register('secretKey')}
-            />
-          </Grid>
+        <Grid container alignItems="center">
+          {/* チャネルID */}
+          <>
+            <Grid item xs={5} sx={{ textAlign: 'right' }}>
+              <Typography variant="body1" sx={{ mb: 2, mr: 4, fontWeight: 'bold' }}>
+                チャネルID
+              </Typography>
+            </Grid>
+            <Grid item xs={7}>
+              <TextField
+                disabled={isSubmitLoading}
+                error={'channelId' in errors}
+                helperText={errors.channelId?.message}
+                type="text"
+                sx={{ width: '100%' }}
+                {...register('channelId')}
+              />
+            </Grid>
+          </>
 
-          <Grid item xs={12} sx={{ mt: 4, textAlign: 'center' }}>
+          <Grid item xs={12} sx={{ p: 2 }} />
+
+          {/* チャネルシークレット */}
+          <>
+            <Grid item xs={5} sx={{ textAlign: 'right' }}>
+              <Typography variant="body1" sx={{ mb: 2, mr: 4, fontWeight: 'bold' }}>
+                チャネルシークレット
+              </Typography>
+            </Grid>
+            <Grid item xs={7}>
+              <TextField
+                disabled={isSubmitLoading}
+                error={'channelSecret' in errors}
+                helperText={errors.channelSecret?.message}
+                type="text"
+                sx={{ width: '100%' }}
+                {...register('channelSecret')}
+              />
+            </Grid>
+          </>
+
+          {/* ボタン */}
+          <Grid item xs={12} sx={{ mt: 6, textAlign: 'center' }}>
             <Button
               startIcon={isSubmitLoading && <CircularProgress size="1rem" />}
               disabled={isSubmitLoading}
@@ -71,6 +97,7 @@ export const SecretForm = ({ setToken }: Props) => {
             </Button>
           </Grid>
 
+          {/* エラーメッセージ */}
           {!!errorMessage && (
             <Grid item xs={12} sx={{ mt: 2 }}>
               <Typography variant="body1" color="error">
