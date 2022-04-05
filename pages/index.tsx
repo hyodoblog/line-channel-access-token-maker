@@ -34,6 +34,10 @@ const Home: NextPage = () => {
         </Box>
 
         <Content />
+
+        <Typography variant="caption" sx={{ fontWeight: 400, mt: 4 }}>
+          送信した情報はどこにも保存されません。
+        </Typography>
       </main>
 
       <Footer />
