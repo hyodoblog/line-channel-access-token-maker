@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { Content } from '~/content/Home'
 import styles from '~/styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -16,6 +17,8 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
+
+        <Content />
       </main>
 
       <footer className={styles.footer}>
