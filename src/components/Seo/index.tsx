@@ -14,7 +14,7 @@ export const Seo = ({ pageTitle, pageDescription, pagePath }: Props) => {
   const title = pageTitle ? `${pageTitle} | ${defaultTitle}` : defaultTitle
   const description = pageDescription ? pageDescription : defaultDescription
   const url = pagePath
-  const imgUrl = '/ogp.png'
+  const imgUrl = 'https://line-channel-access-token-maker.vercel.app/ogp.png'
   const imgWidth = 1200
   const imgHeight = 630
 
@@ -31,6 +31,9 @@ export const Seo = ({ pageTitle, pageDescription, pagePath }: Props) => {
       <meta property="og:image" content={imgUrl} />
       <meta property="og:image:width" content={String(imgWidth)} />
       <meta property="og:image:height" content={String(imgHeight)} />
+      <meta property="og:title" content="ページのタイトル" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@hyodoblog" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link
         href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;display=swap"
